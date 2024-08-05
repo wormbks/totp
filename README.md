@@ -13,7 +13,6 @@ ist, generate, and remove TOTP entries. It stores the entries in file with AES e
 - Option to specify the database file path via a 
   command-line argument or environment variable
 
-Sure, here are step-by-step instructions for using the TOTP CLI application:
 
 ## How to Use the TOTP CLI Application
 
@@ -27,10 +26,12 @@ Sure, here are step-by-step instructions for using the TOTP CLI application:
 
 2. **Build the Application:**
 
-   ```bash
-   cd totp-cli
+```bash
+   cd totp
    go build -o totp ./cmd/...
-   ```
+   # or 
+   make rotp
+```
 
 3. **Run the Application:**
 
@@ -43,8 +44,13 @@ Sure, here are step-by-step instructions for using the TOTP CLI application:
 #### Create a New Database
 
 To create a new TOTP database file, run:
+
 ```bash
 ./totp create-db
+#or
+./totp c
+#or
+./totp db
 ```
 
 #### Add a TOTP from URL
@@ -52,6 +58,8 @@ To create a new TOTP database file, run:
 To add a new TOTP using a URL, run:
 ```bash
 ./totp add-url -u "otpauth://totp/Issuer:AccountName?secret=YOUR_SECRET_KEY&issuer=Issuer&digits=6&algorithm=SHA1&period=30"
+# or 
+./totp a -u "otpauth://totp/Issuer:AccountName?secret=YOUR_SECRET_KEY&issuer=Issuer&digits=6&algorithm=SHA1&period=30"
 ```
 
 #### Add a TOTP from QR Code
@@ -59,6 +67,8 @@ To add a new TOTP using a URL, run:
 To add a new TOTP by scanning a QR code from an image file, run:
 ```bash
 ./totp add-qrc -i path/to/image.png
+# or
+./totp grc -i path/to/image.png
 ```
 
 #### List All TOTPs
@@ -66,6 +76,8 @@ To add a new TOTP by scanning a QR code from an image file, run:
 To list all TOTPs stored in the database, run:
 ```bash
 ./totp list
+# or
+./totp l
 ```
 
 #### Generate a TOTP
@@ -73,6 +85,10 @@ To list all TOTPs stored in the database, run:
 To generate a TOTP for a specific account and issuer, run:
 ```bash
 ./totp generate -a AccountName -i IssuerName
+# or
+./totp g -a AccountName -i IssuerName
+# or
+./totp gen -a AccountName
 ```
 You may specify only AccountName if i's uniqe.
 
@@ -81,14 +97,10 @@ You may specify only AccountName if i's uniqe.
 To remove a TOTP for a specific account and issuer, run:
 ```bash
 ./totp remove -a AccountName -i IssuerName
+# or
+./totp rm -a AccountName -i IssuerName
 ```
 
-#### Example Command Requiring Password Input
-
-To demonstrate password input functionality, run:
-```bash
-./totp some
-```
 
 ### 3. Flags
 
@@ -98,8 +110,8 @@ To demonstrate password input functionality, run:
 
 ### 4. Environment Variables
 
-- TOTP_DB_PATH: Path to the database file. Overrides the by -d flag.
-- TOTP_SALT: Salt input for encryption. Overrides the by -s flag.
+- `TOTP_DB_PATH`: Path to the database file. Overrides the by -d flag.
+- `TOTP_SALT`: Salt input for encryption. Overrides the by -s flag.
 
 ### 4. Contributing
 
